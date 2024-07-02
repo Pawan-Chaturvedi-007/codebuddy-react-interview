@@ -1,7 +1,23 @@
 import { Icon } from "@iconify/react";
+import { Avatar } from "antd";
+import React from "react";
 import { Link } from "react-router-dom";
 
 const Posts = () => {
+  const [posts, setPosts] = React.useState([]);
+  const getPosts = async () => {
+    try {
+      const url = "https://codebuddy.review/posts";
+      const respose = await fetch(url);
+      const result = await respose.json();
+      setPosts(result.data);
+    } catch (error) {
+      console.log("This error is generated from getPosts", error);
+    }
+  };
+  React.useEffect(() => {
+    getPosts();
+  }, []);
   return (
     <div className="rounded-lg bg-gray-50 p-7 text-gray-900 shadow-lg">
       <h1 className="mb-7 text-4xl font-bold">Posts</h1>
@@ -10,31 +26,19 @@ const Posts = () => {
         Back to Home
       </Link>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <div className="rounded-lg bg-white p-7 shadow-lg">
-          <h2 className="text-2xl font-bold">Post 1</h2>
-          <p className="text-gray-700">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo voluptatem, quibusdam,
-            quos, voluptatum voluptas quod quas voluptates quia doloribus nobis voluptatibus. Quam,
-            voluptate voluptatum. Quod, voluptate? Quisquam, voluptate voluptatum.
-          </p>
-        </div>
-        <div className="rounded-lg bg-white p-7 shadow-lg">
-          <h2 className="text-2xl font-bold">Post 2</h2>
-          <p className="text-gray-700">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo voluptatem, quibusdam,
-            quos, voluptatum voluptas quod quas voluptates quia doloribus nobis voluptatibus. Quam,
-            voluptate voluptatum. Quod, voluptate? Quisquam, voluptate voluptatum.
-          </p>
-        </div>
-        <div className="rounded-lg bg-white p-7 shadow-lg">
-          <h2 className="text-2xl font-bold">Post 3</h2>
-          <p className="text-gray-700">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo voluptatem, quibusdam,
-            quos, voluptatum voluptas quod quas voluptates quia doloribus nobis voluptatibus. Quam,
-            voluptate voluptatum. Quod, voluptate? Quisquam, voluptate voluptatum.
-          </p>
-        </div>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post) => {
+          return (
+            <div className="rounded-lg bg-white p-7 shadow-lg" key={post.id}>
+              <div className="my-4 flex space-x-4">
+                <Avatar src={post.avatar} />
+                <h2 className="text-2xl font-bold">{`${post.firstName} ${post.lastName}`}</h2>
+              </div>
+              <img src={post.image} />
+              <p className="mt-4 text-gray-700">{post.writeup}</p>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

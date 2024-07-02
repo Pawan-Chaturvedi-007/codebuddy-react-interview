@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { Avatar } from "antd";
+import { Avatar, message } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -12,6 +12,7 @@ const Posts = () => {
       const result = await respose.json();
       setPosts(result.data);
     } catch (error) {
+      message.error("Failed to fetch posts data");
       console.log("This error is generated from getPosts", error);
     }
   };

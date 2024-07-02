@@ -50,6 +50,7 @@ const MultiStepperForm = () => {
       }
     } catch (error) {
       message.error("Form submission failed");
+      message.destroy("loading");
       console.log("This error is generaPZted from saveFormData", error);
     }
   };

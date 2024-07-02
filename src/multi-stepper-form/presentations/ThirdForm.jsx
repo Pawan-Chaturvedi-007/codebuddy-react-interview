@@ -1,10 +1,11 @@
 import { Checkbox, Form, Input, Select } from "antd";
 import { COUNTRY_CODE } from "../common/utils";
+import PropTypes from "prop-types";
 
 const ThirdForm = (props) => {
   const { form } = props;
   ThirdForm.propTypes = {
-    form: Object,
+    form: PropTypes.object,
   };
 
   const countryDataHandler = (name, value) => {

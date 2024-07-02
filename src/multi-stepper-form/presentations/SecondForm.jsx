@@ -1,9 +1,10 @@
 import { Form, Input } from "antd";
+import PropTypes from "prop-types";
 
 const SecondForm = (props) => {
   const { form } = props;
   SecondForm.propTypes = {
-    form: Object,
+    form: PropTypes.object,
   };
   const personalFormDataHandler = (name, value) => {
     form.setFieldValue({ [name]: value });

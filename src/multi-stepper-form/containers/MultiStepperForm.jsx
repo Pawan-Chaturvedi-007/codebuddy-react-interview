@@ -5,16 +5,22 @@ import SecondForm from "../presentations/SecondForm";
 import ThirdForm from "../presentations/ThirdForm";
 import { STEPS } from "../common/utils";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const MultiStepperForm = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [current, setCurrent] = React.useState(0);
 
+  const items = STEPS.map((item) => ({
+    key: item.title,
+    title: item.title,
+  }));
+
   const GetCurrentForm = (props) => {
     GetCurrentForm.propTypes = {
-      currentForm: Number,
-      form: Object,
+      currentForm: PropTypes.number,
+      form: PropTypes.object,
     };
     const { currentForm, form } = props;
     switch (currentForm) {
@@ -53,11 +59,6 @@ const MultiStepperForm = () => {
       setCurrent(value);
     }
   };
-
-  const items = STEPS.map((item) => ({
-    key: item.title,
-    title: item.title,
-  }));
 
   const next = () => {
     setCurrent(current + 1);
@@ -101,9 +102,7 @@ const MultiStepperForm = () => {
       <Steps current={current} items={items} onChange={onChange} />
       <div className="my-5 flex flex-col justify-items-center">
         <Form
-          style={{
-            maxWidth: 600,
-          }}
+          className="w-[300px] md:w-[600px]"
           form={form}
           name="basic"
           onFinish={onFinish}

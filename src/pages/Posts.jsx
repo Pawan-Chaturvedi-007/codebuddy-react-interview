@@ -27,7 +27,7 @@ const Posts = () => {
       </Link>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {posts.map((post) => {
+        {posts?.map((post) => {
           return (
             <div className="rounded-lg bg-white p-7 shadow-lg" key={post.id}>
               <div className="my-4 flex space-x-4">
